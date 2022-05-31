@@ -50,7 +50,7 @@ def monitor():
     fig.subplots_adjust(hspace=2)
     fig.set_size_inches(18.5, 10.5)
 
-    axs[0].set_title('Distance - ESP32 [cm]')
+    axs[0].set_title('Distance - Arduino [cm]')
     axs[0].plot(timestamps_d, values_d, label='Distance')
     axs[0].set_xlabel('Timestamp')
     axs[0].set_ylabel('Distance [cm]')
@@ -60,7 +60,7 @@ def monitor():
         axs[0].set_xticks(ticks_d)
         axs[0].set_xticklabels(labels_d, rotation=-45)
 
-    axs[1].set_title('Interruption - Arduino')
+    axs[1].set_title('Interruption - ESP32')
     axs[1].plot(timestamps_i, values_i, label='Interruption')
     axs[1].set_xlabel('Timestamp')
     axs[1].set_ylabel('Interruption')

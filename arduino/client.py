@@ -40,6 +40,6 @@ if __name__ == "__main__":
                 while True:
                     time.sleep(5)
                     data = test(ser)
-                    s.sendall(bytes(str(data), 'utf-8')
+                    s.sendall(bytes(str(data), 'utf-8'))
     else:
         print("No Arduino board available")
