@@ -1,12 +1,10 @@
 import socket
 import threading
 import time
-import base64
 import mysql.connector
 import matplotlib.pyplot as plt
 from flask import Flask
 from flask import render_template
-from io import BytesIO
 
 class Database():
     def __init__(self, host, user):
