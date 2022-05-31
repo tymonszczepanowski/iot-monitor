@@ -1,6 +1,6 @@
 import socket
 import threading
-import time
+import datetime
 import mysql.connector
 
 class Database():
@@ -17,7 +17,8 @@ class Database():
             password=self._passwd
         )
         cursor = db.cursor()
-        cursor.execute('CREATE DATABASE IF NOT EXISTS iot')
+        cursor.execute('DROP DATABASE IF EXISTS iot')
+        cursor.execute('CREATE DATABASE iot')
         cursor.close()
 
         db = mysql.connector.connect(
@@ -27,11 +28,12 @@ class Database():
             database='iot'
         )
         cursor = db.cursor()
-        cursor.execute('CREATE TABLE IF NOT EXISTS devices (name VARCHAR(255), value INT)')
+        cursor.execute('DROP TABLE IF EXISTS devices')
+        cursor.execute('CREATE TABLE devices (name VARCHAR(255), value INT, time VARCHAR(255))')
         cursor.close()
         print('Db init done!')
 
-    def insert(self, name, value):
+    def insert(self, name, value, time):
         db = mysql.connector.connect(
             host=self._host,
             user=self._user,
@@ -39,7 +41,7 @@ class Database():
             database='iot'
         )
         cursor = db.cursor()
-        expression = 'INSERT INTO devices VALUES ("{}", "{}")'.format(name, value)
+        expression = 'INSERT INTO devices VALUES ("{}", "{}", "{}")'.format(name, value, time)
         print(expression)
         cursor.execute(expression)
         db.commit()
@@ -70,13 +72,13 @@ class Server():
         while self._running:
             connection, address = self._socket.accept()
             with connection:
-                print('Connected by {}'.format(address))
+                print('Connected by {} on port {}'.format(address, self._port))
                 while True:
                     data = connection.recv(1024)
                     if data:
-                        print('Received data: {}'.format(data.decode()))
-                        print('### Should insert: {}'.format(int(data.decode())))
-                        self._db.insert(self._device_name, int(data.decode()))
+                        print('Received data: {} on port {}'.format(data.decode(), self._port))
+                        ct = str(datetime.datetime.now())
+                        self._db.insert(self._device_name, int(data.decode()), ct)
 
     def _get_name(self):
         if self._port == 10000:
@@ -92,9 +94,14 @@ class Server():
 
 def main():
     database = Database('localhost', 'root')
-    server = Server('localhost', 10000, database)
-    print(server)
-    server.run()
+
+    server1 = Server('localhost', 10000, database)
+    thread1 = threading.Thread(target=server1.run)
+    server2 = Server('localhost', 20000, database)
+    thread2 = threading.Thread(target=server2.run)
+
+    thread1.start()
+    thread2.start()
 
 
 if __name__ == '__main__':
