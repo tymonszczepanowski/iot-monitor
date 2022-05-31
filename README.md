@@ -1,5 +1,4 @@
 # IOT monitor
-### Description
 Simple application to send data from IOT devices' sensors to host and provide user with Zabbixlike monitor. Tested with one Arduino UNO and one ESP32 boards and two H2SR04 ultrasonic sensors. Web application is written in Flask and we use three Docker containers to run it.
 ### Topology
 #### IOT devices
