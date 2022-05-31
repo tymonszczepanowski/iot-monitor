@@ -82,9 +82,9 @@ class Server():
 
     def _get_name(self):
         if self._port == 10000:
-            return 'distance'
+            return 'distance_arduino'
         if self._port == 20000:
-            return 'interruption'
+            return 'distance_esp'
         
     def disconnect(self):
         print('Disconnecting!')
@@ -97,7 +97,8 @@ def main():
 
     server1 = Server('localhost', 10000, database)
     thread1 = threading.Thread(target=server1.run)
-    server2 = Server('localhost', 20000, database)
+    # static ip for esp to connect
+    server2 = Server('192.168.43.215', 20000, database)
     thread2 = threading.Thread(target=server2.run)
 
     thread1.start()
