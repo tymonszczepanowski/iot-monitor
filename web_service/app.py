@@ -50,10 +50,10 @@ def monitor():
     fig.subplots_adjust(hspace=2)
     fig.set_size_inches(18.5, 10.5)
 
-    axs[0].set_title('Distance - ESP32')
+    axs[0].set_title('Distance - ESP32 [cm]')
     axs[0].plot(timestamps_d, values_d, label='Distance')
     axs[0].set_xlabel('Timestamp')
-    axs[0].set_ylabel('Distance')
+    axs[0].set_ylabel('Distance [cm]')
     if len(timestamps_d) >= 10:
         ticks_d = list(range(1, len(timestamps_d), int(len(timestamps_d)/10)))
         labels_d = [timestamps_d[index] for index in ticks_d]
