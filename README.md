@@ -23,6 +23,6 @@ Firstly, you need to upload programs to Arduino and ESP32 boards. Then you need 
 Next you need to run python client for Arduino and make sure your ESP32 works correctly. After that you are all set and the monitor should be available on the localhost, port 5000.
 ### Todo list:
 - [ ] Run the app on the Raspberry Pi
-- [ ] Create better connection string between containers (stop using hosts' network)
+- [ ] Create better connection string between containers (stop using host's network)
 - [ ] Replace bash scripts with docker-compose
 ### Authors: Bartosz Kowalski, Tymon Szczepanowski
