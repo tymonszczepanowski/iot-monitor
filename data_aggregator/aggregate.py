@@ -47,7 +47,7 @@ class Database():
 
     def _get_credentials(self):
         credentials = open('credentials', 'r').read()
-        return credentials.split('=')[1].replace('"','')
+        return credentials.split('=')[1].replace('\n', '')
         
 
 class Server():
