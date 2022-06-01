@@ -1,4 +1,5 @@
 # IOT monitor
+### Description
 Simple application to send data from IOT devices' sensors to host and provide user with Zabbixlike monitor. Tested with one Arduino UNO and one ESP32 boards and two H2SR04 ultrasonic sensors. Web application is written in Flask and we use three Docker containers to run it.
 ### Topology
 #### IOT devices
@@ -13,6 +14,7 @@ Containerized app with two listening sockets running in parallel. It initiates a
 For database, we use Docker Official Image for MySQL and run it in a container. <br/>
 **Flask Web Monitor** <br/>
 Containerized app made using Flask framework. It creates pyplot figures with data from the database. It automatically refreshes every 10 seconds. <br/>
+![Screenshot](screenshots/topology.png)
 ### How to run it?
 Firstly, you need to upload programs to Arduino and ESP32 boards. Then you need to run bash scripts from docker directory in the following order:
 1. run_db.sh
